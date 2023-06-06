@@ -1,7 +1,10 @@
 package br.com.alura.screenmatch;
 
 import br.com.alura.screenmatch.modelos.Categoria;
+import br.com.alura.screenmatch.modelos.CategoriaApi;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,9 +26,10 @@ public class PrincipalComBusca {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String json = response.body();
 
-        Gson gson = new Gson();
-        Categoria categoria = gson.fromJson(json, Categoria.class);
-        System.out.println(categoria.toString());
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+        CategoriaApi categoriaApi = gson.fromJson(json, CategoriaApi.class);
+        Categoria categoria = new Categoria(categoriaApi.title(), categoriaApi.year(), categoriaApi.runtime());
+        System.out.println(categoria);
         input.close();
     }
 }

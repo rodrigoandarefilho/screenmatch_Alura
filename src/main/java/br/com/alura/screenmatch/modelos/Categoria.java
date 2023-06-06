@@ -21,6 +21,12 @@ public class Categoria implements Comparable<Categoria> {
         this.anoDeLancamento = anoDeLancamento;
     }
 
+    public Categoria(String title, String year, String runtime) {
+        this.nome = title;
+        this.anoDeLancamento = Integer.parseInt(year);
+        this.duracaoMinutos = Integer.parseInt(runtime.substring(0, 2));
+    }
+
     public void exibeFichaTecnica() {
         System.out.println("Nome do filme: " + this.nome);
         System.out.println("Ano de lançamento: " + this.anoDeLancamento);
@@ -39,7 +45,9 @@ public class Categoria implements Comparable<Categoria> {
 
     @Override
     public String toString() {
-        return "Titulo: " + this.getNome() + " Ano de lançamento: " +"( " + this.getAnoDeLancamento() + " )";
+        return "Titulo: " + this.getNome() + "\n" +
+                "Ano de lançamento: " + this.getAnoDeLancamento() + "\n" +
+                "Duração: " + this.getDuracaoMinutos();
     }
 
     @Override
